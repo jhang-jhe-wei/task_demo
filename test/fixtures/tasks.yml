@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  title: MyString
+  content: MyString
+  tag: MyString
+  user_id: 1
+  start: 2020-12-21 17:30:01
+  end: 2020-12-21 17:30:01
+  piority: 1
+  state: 1
+
+two:
+  name: MyString
+  title: MyString
+  content: MyString
+  tag: MyString
+  user_id: 1
+  start: 2020-12-21 17:30:01
+  end: 2020-12-21 17:30:01
+  piority: 1
+  state: 1
