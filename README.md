@@ -23,7 +23,7 @@ Things you may want to cover:
 # Heroku
 ## Version
 - heroku/7.47.6 darwin-x64 node-v12.16.2
-## Command
+## Deploy Command
 ```
 heroku login -i
 heroku create "wells-task-demo"
