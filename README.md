@@ -20,8 +20,10 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-# heroku
-## command
+# Heroku
+## Version
+- heroku/7.47.6 darwin-x64 node-v12.16.2
+## Command
 ```
 heroku login -i
 heroku create "wells-task-demo"
