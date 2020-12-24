@@ -20,7 +20,17 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
+# heroku
+## command
+```
+heroku login -i
+heroku create "wells-task-demo"
+git init
+git add .
+git commit -m "message"
+git push heroku master
+heroku run rails db:migrate
+```
 # schemad
 ## User
   Column  | Type
