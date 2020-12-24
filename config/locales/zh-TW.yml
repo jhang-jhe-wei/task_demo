@@ -1,0 +1,41 @@
+zh-TW:
+  hello: "哈囉！您好嗎？"
+  c_task_happy: "任務建立成功！"
+  u_task_happy: "任務更新成功！"
+  d_task_happy: "任務刪除成功！"
+  c_task_bad: "標題：不能是空的"
+  title: "標題"
+  content: "內容"
+  tag: "標籤"
+  start: "開始日期"
+  end: "截止日期"
+  piority: "優先度"
+  state: "狀態"
+  pending: "待處理"
+  processing: "進行中"
+  finished: "已完成"
+  low: "低"
+  medium: "中"
+  high: "高"
+  error_date: "結束日期必須在開始日期後"
+  create_task: "新增任務"
+  update_task: "更新任務"
+  destroy_task: "刪除任務"
+  edit_task: "修改任務"
+  new_task: "新增任務"
+  back: "返回"
+  show: "內容"
+  destroy: "刪除"
+  edit: "修改"
+  tasks: "任務列表"
+  confirm: "你確定嗎?"
+  date:
+    order: [ "year", "month","day"]
+    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            title: 
+              blank: "不能是空的"
