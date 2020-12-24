@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
+  <strong><%= "#{I18n.t("title")}: " %></strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Content:</strong>
+  <strong><%= "#{I18n.t("content")}: " %></strong>
   <%= @task.content %>
 </p>
 
 <p>
-  <strong>Tag:</strong>
+  <strong><%= "#{I18n.t("tag")}: " %></strong>
   <%= @task.tag %>
 </p>
 
@@ -21,24 +21,24 @@
 </p>
 
 <p>
-  <strong>Start:</strong>
+  <strong><%= "#{I18n.t("start")}: " %></strong>
   <%= @task.start %>
 </p>
 
 <p>
-  <strong>End:</strong>
+  <strong><%= "#{I18n.t("end")}: " %></strong>
   <%= @task.end %>
 </p>
 
 <p>
-  <strong>Piority:</strong>
+  <strong><%= "#{I18n.t("piority")}: " %></strong>
   <%= @task.piority %>
 </p>
 
 <p>
-  <strong>State:</strong>
+  <strong><%= "#{I18n.t("state")}: " %></strong>
   <%= @task.state %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to I18n.t("edit"), edit_task_path(@task) %> |
+<%= link_to I18n.t("back"), tasks_path %>

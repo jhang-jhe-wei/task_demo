@@ -5,24 +5,24 @@
 
       <ul>
         <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li><%= "#{I18n.t(error.attribute)}：#{error.message}" %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label "#{I18n.t("title")}" %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
+    <%= form.label "#{I18n.t("content")}" %>
     <%= form.text_field :content %>
   </div>
 
   <div class="field">
-    <%= form.label :tag %>
+    <%= form.label "#{I18n.t("tag")}" %>
     <%= form.text_field :tag %>
   </div>
 
@@ -32,26 +32,26 @@
   </div>
 
   <div class="field">
-    <%= form.label :start %>
+    <%= form.label "#{I18n.t("start")}" %>
     <%= form.datetime_select :start %>
   </div>
 
   <div class="field">
-    <%= form.label :end %>
+    <%= form.label "#{I18n.t("end")}" %>
     <%= form.datetime_select :end %>
   </div>
 
   <div class="field">
-    <%= form.label :piority %>
-    <%= form.number_field :piority %>
+    <%= form.label "#{I18n.t("piority")}" %>
+    <%= form.select(:piority, { "#{I18n.t("low")}": "low", "#{I18n.t("medium")}": "medium", "#{I18n.t("high")}": "high" }) %>
   </div>
 
   <div class="field">
-    <%= form.label :state %>
-    <%= form.number_field :state %>
+    <%= form.label "#{I18n.t("state")}" %>
+    <%= form.select(:state, { "#{I18n.t("pending")}": "pending", "#{I18n.t("processing")}": "processing", "#{I18n.t("finished")}": "finished" }) %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "#{I18n.t("create_task")}" %>
   </div>
 <% end %>
