@@ -16,8 +16,8 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create task" do
-    assert_difference('Task.count') do
-      post tasks_url, params: { task: { content: @task.content, end: @task.end, name: @task.name, piority: @task.piority, start: @task.start, state: @task.state, tag: @task.tag, title: @task.title, user_id: @task.user_id } }
+    assert_difference("Task.count") do
+      post tasks_url, params: { task: { content: @task.content, end_time: @task.end_time, name: @task.name, piority: @task.piority, start_time: @task.start_time, state: @task.state, tag: @task.tag, title: @task.title, user_id: @task.user_id } }
     end
 
     assert_redirected_to task_url(Task.last)
@@ -34,12 +34,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update task" do
-    patch task_url(@task), params: { task: { content: @task.content, end: @task.end, name: @task.name, piority: @task.piority, start: @task.start, state: @task.state, tag: @task.tag, title: @task.title, user_id: @task.user_id } }
+    patch task_url(@task), params: { task: { content: @task.content, end_time: @task.end_time, name: @task.name, piority: @task.piority, start_time: @task.start_time, state: @task.state, tag: @task.tag, title: @task.title, user_id: @task.user_id } }
     assert_redirected_to task_url(@task)
   end
 
   test "should destroy task" do
-    assert_difference('Task.count', -1) do
+    assert_difference("Task.count", -1) do
       delete task_url(@task)
     end
 

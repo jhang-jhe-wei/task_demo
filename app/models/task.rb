@@ -5,8 +5,8 @@ class Task < ApplicationRecord
   validate :valid_date
   #belongs_to :user
   def valid_date
-    if self.start >= self.end
-      self.errors.add :start, "#{I18n.t("error_date")}"
+    if start_time >= end_time
+      errors.add :start_time, "#{I18n.t("error_date")}"
     end
   end
 end
