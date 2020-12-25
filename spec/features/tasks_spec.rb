@@ -91,9 +91,9 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       strs = page.text.split " "
       # puts strs
-      expect(strs[9]).to eq '交報告'
-      expect(strs[19]).to eq '讀書'
-      expect(strs[29]).to eq '煮飯'
+      expect(strs[12]).to eq '交報告'
+      expect(strs[24]).to eq '讀書'
+      expect(strs[36]).to eq '煮飯'
     end
   end
 
@@ -104,15 +104,15 @@ RSpec.feature "Tasks", type: :feature do
       task3=Task.create(title: '煮飯', start_time: DateTime.now, end_time: DateTime.now+1.day)
       visit tasks_path
       strs = page.text.split " "
-      expect(strs[9]).to eq '交報告'
-      expect(strs[19]).to eq '讀書'
-      expect(strs[29]).to eq '煮飯'
+      expect(strs[12]).to eq '交報告'
+      expect(strs[24]).to eq '讀書'
+      expect(strs[36]).to eq '煮飯'
       click_link "#{I18n.t "order_by_end_time"}"
       strs = page.text.split " "
       # puts strs
-      expect(strs[9]).to eq '煮飯'
-      expect(strs[19]).to eq '讀書'
-      expect(strs[29]).to eq '交報告'
+      expect(strs[12]).to eq '煮飯'
+      expect(strs[24]).to eq '讀書'
+      expect(strs[36]).to eq '交報告'
     end
   end
 

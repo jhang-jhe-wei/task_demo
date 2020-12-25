@@ -1,6 +1,14 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+  def search
+    puts I18n.t(params[:state])
+    @tasks = Task.where("title = ?", params[:title]) if params[:title]
+    @tasks = Task.where("state = ?", Task.states[params[:state]]) if params[:state]
+    @tasks ||= Task.all
+    render :index
+  end
+
   # GET /tasks
   # GET /tasks.json
   def index

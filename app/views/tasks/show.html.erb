@@ -32,12 +32,12 @@
 
 <p>
   <strong><%= "#{I18n.t("piority")}: " %></strong>
-  <%= @task.piority %>
+  <%= I18n.t("#{@task.piority}") %>
 </p>
 
 <p>
   <strong><%= "#{I18n.t("state")}: " %></strong>
-  <%= @task.state %>
+  <%= I18n.t("#{@task.state}") %>
 </p>
 
 <%= link_to I18n.t("edit"), edit_task_path(@task) %> |
