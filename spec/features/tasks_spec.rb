@@ -116,6 +116,25 @@ RSpec.feature "Tasks", type: :feature do
     end
   end
 
+  context "tasks order by piority" do
+    scenario "should be successful" do
+      task1=Task.create(title: '交報告', start_time: DateTime.now, end_time: DateTime.now+1.day,piority: 2)
+      task2=Task.create(title: '讀書', start_time: DateTime.now, end_time: DateTime.now+1.day,piority: 1)
+      task3=Task.create(title: '煮飯', start_time: DateTime.now, end_time: DateTime.now+1.day,piority: 0)
+      visit tasks_path
+      strs = page.text.split " "
+      expect(strs[12]).to eq '交報告'
+      expect(strs[24]).to eq '讀書'
+      expect(strs[36]).to eq '煮飯'
+      click_link "#{I18n.t "order_by_piority"}"
+      strs = page.text.split " "
+      # puts strs
+      expect(strs[12]).to eq '煮飯'
+      expect(strs[24]).to eq '讀書'
+      expect(strs[36]).to eq '交報告'
+    end
+  end
+
   context "tasks clean" do
     scenario "should be empty" do
       expect(Task.all).to be_empty
