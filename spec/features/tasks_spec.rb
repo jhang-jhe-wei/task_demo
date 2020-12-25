@@ -76,7 +76,7 @@ RSpec.feature "Tasks", type: :feature do
     end
   end
 
-  context "tasks sort by create_date" do
+  context "tasks order by create_date" do
     scenario "should be successful" do
       task1=Task.create(title: '交報告', start: DateTime.now, end: DateTime.tomorrow)
       task2=Task.create(title: '讀書', start: DateTime.now, end: DateTime.tomorrow)
@@ -94,6 +94,25 @@ RSpec.feature "Tasks", type: :feature do
       expect(strs[9]).to eq '交報告'
       expect(strs[19]).to eq '讀書'
       expect(strs[29]).to eq '煮飯'
+    end
+  end
+
+  context "tasks order by end" do
+    scenario "should be successful" do
+      task1=Task.create(title: '交報告', start: DateTime.now, end: DateTime.now+3.day)
+      task2=Task.create(title: '讀書', start: DateTime.now, end: DateTime.now+2.day)
+      task3=Task.create(title: '煮飯', start: DateTime.now, end: DateTime.now+1.day)
+      visit tasks_path
+      strs = page.text.split " "
+      expect(strs[9]).to eq '交報告'
+      expect(strs[19]).to eq '讀書'
+      expect(strs[29]).to eq '煮飯'
+      click_link "#{I18n.t "order_by_end"}"
+      strs = page.text.split " "
+      # puts strs
+      expect(strs[9]).to eq '煮飯'
+      expect(strs[19]).to eq '讀書'
+      expect(strs[29]).to eq '交報告'
     end
   end
 

@@ -28,6 +28,7 @@ zh-TW:
   destroy: "刪除"
   edit: "修改"
   tasks: "任務列表"
+  order_by_end: "依結束日期排序"
   confirm: "你確定嗎?"
   date:
     order: [ "year", "month","day"]
