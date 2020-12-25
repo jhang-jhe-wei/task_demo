@@ -9,8 +9,8 @@
       <th><%= I18n.t("content") %></th>
       <th><%= I18n.t("tag") %></th>
       <th>User</th>
-      <th><%= I18n.t("start") %></th>
-      <th><%= I18n.t("end") %></th>
+      <th><%= I18n.t("start_time") %></th>
+      <th><%= I18n.t("end_time") %></th>
       <th><%= I18n.t("piority") %></th>
       <th><%= I18n.t("state") %></th>
       <th colspan="3"></th>
@@ -24,8 +24,8 @@
         <td><%= task.content %></td>
         <td><%= task.tag %></td>
         <td><%= task.user_id %></td>
-        <td><%= task.start %></td>
-        <td><%= task.end %></td>
+        <td><%= task.start_time %></td>
+        <td><%= task.end_time %></td>
         <td><%= I18n.t(task.piority) %></td>
         <td><%= I18n.t(task.state) %></td>
         <td><%= link_to I18n.t("show"), task %></td>
@@ -39,3 +39,4 @@
 <br>
 
 <%= link_to I18n.t("create_task"), new_task_path %>
+<%= link_to I18n.t("order_by_end_time"), "tasks/order/end_time" %>

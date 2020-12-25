@@ -15,10 +15,10 @@ class TasksTest < ApplicationSystemTestCase
     click_on "New Task"
 
     fill_in "Content", with: @task.content
-    fill_in "End", with: @task.end
+    fill_in "End_time", with: @task.end_time
     fill_in "Name", with: @task.name
     fill_in "Piority", with: @task.piority
-    fill_in "Start", with: @task.start
+    fill_in "Start_time", with: @task.start_time
     fill_in "State", with: @task.state
     fill_in "Tag", with: @task.tag
     fill_in "Title", with: @task.title
@@ -34,10 +34,10 @@ class TasksTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Content", with: @task.content
-    fill_in "End", with: @task.end
+    fill_in "End", with: @task.end_time
     fill_in "Name", with: @task.name
     fill_in "Piority", with: @task.piority
-    fill_in "Start", with: @task.start
+    fill_in "start_time", with: @task.start_time
     fill_in "State", with: @task.state
     fill_in "Tag", with: @task.tag
     fill_in "Title", with: @task.title

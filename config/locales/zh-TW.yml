@@ -7,8 +7,8 @@ zh-TW:
   title: "標題"
   content: "內容"
   tag: "標籤"
-  start: "開始日期"
-  end: "截止日期"
+  start_time: "開始日期"
+  end_time: "截止日期"
   piority: "優先度"
   state: "狀態"
   pending: "待處理"
@@ -28,6 +28,7 @@ zh-TW:
   destroy: "刪除"
   edit: "修改"
   tasks: "任務列表"
+  order_by_end_time: "依結束日期排序"
   confirm: "你確定嗎?"
   date:
     order: [ "year", "month","day"]

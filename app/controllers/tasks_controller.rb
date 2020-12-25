@@ -4,7 +4,12 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order "created_at"
+    case params[:type]
+    when "end_time"
+      @tasks = Task.order "end_time"
+    else
+      @tasks = Task.order "created_at"
+    end
   end
 
   # GET /tasks/1
@@ -69,6 +74,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:name, :title, :content, :tag, :user_id, :start, :end, Task.piorities[:piority], Task.states[:state])
+    params.require(:task).permit(:name, :title, :content, :tag, :user_id, :start_time, :end_time, Task.piorities[:piority], Task.states[:state])
   end
 end

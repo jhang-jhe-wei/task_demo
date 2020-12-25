@@ -2,23 +2,23 @@ require "rails_helper"
 
 RSpec.describe Task, type: :model do
   context "validation tests" do
-    it "ensures start date" do
-      task = Task.new(title: "wells", start: DateTime.tomorrow, end: DateTime.now).save
+    it "ensures start_time date" do
+      task = Task.new(title: "wells", start_time: DateTime.tomorrow, end_time: DateTime.now).save
       expect(task).to eq(false)
     end
 
-    it "ensures end date" do
-      task = Task.new(title: "wells", start: DateTime.now, end: DateTime.yesterday).save
+    it "ensures end_time date" do
+      task = Task.new(title: "wells", start_time: DateTime.now, end_time: DateTime.yesterday).save
       expect(task).to eq(false)
     end
 
     it "ensures title" do
-      task = Task.new(start: DateTime.now, end: DateTime.tomorrow).save
+      task = Task.new(start_time: DateTime.now, end_time: DateTime.tomorrow).save
       expect(task).to eq(false)
     end
 
     it "should save successfully" do
-      task = Task.new(title: "wells", start: DateTime.now, end: DateTime.tomorrow).save
+      task = Task.new(title: "wells", start_time: DateTime.now, end_time: DateTime.tomorrow).save
       expect(task).to eq(true)
     end
   end
