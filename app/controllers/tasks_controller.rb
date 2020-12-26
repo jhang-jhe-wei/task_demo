@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def search
-    puts I18n.t(params[:state])
-    @tasks = Task.where("title = ?", params[:title]) if params[:title]
-    @tasks = Task.where("state = ?", Task.states[params[:state]]) if params[:state]
+    #puts I18n.t(params[:state])
+    @tasks = Task.where("title = ?", params[:title]).page(params[:page]) if params[:title]
+    @tasks = Task.where("state = ?", Task.states[params[:state]]).page(params[:page]) if params[:state]
     @tasks ||= Task.all
     render :index
   end
@@ -14,11 +14,11 @@ class TasksController < ApplicationController
   def index
     case params[:type]
     when "end_time"
-      @tasks = Task.order "end_time"
+      @tasks = Task.order("end_time").page(params[:page])
     when "piority"
-      @tasks = Task.order "piority"
+      @tasks = Task.order("piority").page(params[:page])
     else
-      @tasks = Task.order "created_at"
+      @tasks = Task.order("created_at").page(params[:page])
     end
   end
 
@@ -84,7 +84,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    puts params
+    #puts params
     params.require(:task).permit(:name, :title, :content, :tag, :user_id, :start_time, :end_time, :piority, :state)
   end
 end
