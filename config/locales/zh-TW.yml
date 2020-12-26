@@ -29,6 +29,7 @@ zh-TW:
   edit: "修改"
   tasks: "任務列表"
   order_by_end_time: "依結束日期排序"
+  order_by_piority: "依優先順序排序"
   confirm: "你確定嗎?"
   date:
     order: [ "year", "month","day"]

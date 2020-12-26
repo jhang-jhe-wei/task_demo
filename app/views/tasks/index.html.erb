@@ -1,6 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= I18n.t("tasks") %></h1>
+<%= form_tag '/tasks/search' do %>
+  <%= text_field_tag 'title',nil , placeholder: "標題", class:'tbx_normal' %>
+  <%= submit_tag "查詢", class:'btn_big btn_orange'%>
+<% end %>
+
+<%= form_tag '/tasks/search' do %>
+  <select name="state">
+  <option value="pending"><%= I18n.t("pending")%></option>
+  <option value="processing"><%= I18n.t("processing")%></option>
+  <option value="finished"><%= I18n.t("finished")%></option>
+</select>
+  <%= submit_tag "查詢", class:'btn_big btn_orange'%>
+<% end %>
 
 <table>
   <thead>
@@ -39,4 +52,5 @@
 <br>
 
 <%= link_to I18n.t("create_task"), new_task_path %>
-<%= link_to I18n.t("order_by_end_time"), "tasks/order/end_time" %>
+<%= link_to I18n.t("order_by_end_time"), "/tasks/order/end_time" %>
+<%= link_to I18n.t("order_by_piority"), "/tasks/order/piority" %>
