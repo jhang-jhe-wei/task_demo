@@ -3,8 +3,8 @@ class TasksController < ApplicationController
 
   def search
     #puts I18n.t(params[:state])
-    @tasks = Task.where("title = ?", params[:title]).page(params[:page]) if params[:title]
-    @tasks = Task.where("state = ?", Task.states[params[:state]]).page(params[:page]) if params[:state]
+    @tasks = Task.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
+    @tasks = Task.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
     @tasks ||= Task.all
     render :index
   end
@@ -14,11 +14,11 @@ class TasksController < ApplicationController
   def index
     case params[:type]
     when "end_time"
-      @tasks = Task.order("end_time").page(params[:page])
+      @tasks = Task.order("end_time").includes(:user).page(params[:page])
     when "piority"
-      @tasks = Task.order("piority").page(params[:page])
+      @tasks = Task.order("piority").includes(:user).page(params[:page])
     else
-      @tasks = Task.order("created_at").page(params[:page])
+      @tasks = Task.order("created_at").includes(:user).page(params[:page])
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_25_194722) do
+ActiveRecord::Schema.define(version: 2020_12_27_070746) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2020_12_25_194722) do
     t.index ["piority"], name: "index_tasks_on_piority"
     t.index ["state"], name: "index_tasks_on_state"
     t.index ["title"], name: "index_tasks_on_title"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
