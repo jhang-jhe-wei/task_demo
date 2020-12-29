@@ -1,6 +1,6 @@
 class ChangeTagInTasks < ActiveRecord::Migration[6.1]
   def up
-    change_column(:tasks, :tag, :Integer)
+    ALTER TABLE tasks ALTER COLUMN tag TYPE integer USING(tag::integer)
   end
 
   def down
