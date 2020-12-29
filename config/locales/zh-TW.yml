@@ -31,6 +31,7 @@ zh-TW:
   order_by_end_time: "依結束日期排序"
   order_by_piority: "依優先順序排序"
   confirm: "你確定嗎?"
+  user: "使用者"
   date:
     order: [ "year", "month","day"]
     month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
@@ -41,3 +42,16 @@ zh-TW:
           attributes:
             title: 
               blank: "不能是空的"
+            user:
+              required: "需要被指定"
+        user:
+          attributes:
+            name: 
+              blank: "不能是空的"
+            email: 
+              blank: "不能是空的"
+            phone: 
+              blank: "不能是空的"
+            password: 
+              blank: "不能是空的"
+            

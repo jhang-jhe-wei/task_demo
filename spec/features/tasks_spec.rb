@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "Tasks", type: :feature do
+  before(:each) do
+    visit tasks_path
+    fill_in "email", with: 'user@gmail.com'
+    fill_in "password", with: '123456'
+    click_button "登入"
+  end
   context "create new task" do
     scenario "should be successful" do
       visit new_task_path

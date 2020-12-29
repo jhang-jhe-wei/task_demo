@@ -1,5 +1,12 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :login?
+
+  def login?
+    @current_user = User.find_by id: session[:current_user_id]
+    redirect_to admin_login_path unless @current_user
+    redirect_to tasks_path unless @current_user.admin
+  end
 
   # GET /users
   # GET /users.json
@@ -10,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @tasks = @user.tasks.page(params[:page])
   end
 
   # GET /users/new
@@ -28,7 +36,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to admin_users_path(@user), notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -42,7 +50,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to admin_users_path(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -55,20 +63,23 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    @notice = @user.errors[:user] || "User was successfully destroy."
+    puts @user.errors[:user]
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admin_users_url, notice: @user.errors[:user].to_s || "User was successfully destroy." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :phone, :email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:name, :phone, :email, :admin, :password)
+  end
 end

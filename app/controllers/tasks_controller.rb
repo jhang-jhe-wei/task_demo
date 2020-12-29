@@ -1,11 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :login?
+
+  def login?
+    @current_user = User.find_by id: session[:current_user_id]
+    redirect_to login_path unless @current_user
+  end
 
   def search
     #puts I18n.t(params[:state])
-    @tasks = Task.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
-    @tasks = Task.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
-    @tasks ||= Task.all
+    @tasks = @current_user.tasks.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
+    @tasks = @current_user.tasks.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
+    @tasks = Task.where(tag: Tag.find_by(name: params[:tag]), user: @current_user).includes(:user).page(params[:page]) if params[:tag]
+    @tasks ||= []
     render :index
   end
 
@@ -14,11 +21,11 @@ class TasksController < ApplicationController
   def index
     case params[:type]
     when "end_time"
-      @tasks = Task.order("end_time").includes(:user).page(params[:page])
+      @tasks = @current_user.tasks.order("end_time").includes(:user).page(params[:page])
     when "piority"
-      @tasks = Task.order("piority").includes(:user).page(params[:page])
+      @tasks = @current_user.tasks.order("piority").includes(:user).page(params[:page])
     else
-      @tasks = Task.order("created_at").includes(:user).page(params[:page])
+      @tasks = @current_user.tasks.order("created_at").includes(:user).page(params[:page])
     end
   end
 
@@ -40,6 +47,9 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    params[:task][:tag].split("#").each do |tag|
+      @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
+    end
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: I18n.t("c_task_happy") }
@@ -56,6 +66,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        @task.destroy_all
+        params[:task][:tag].split(" ").each { |tag| @task.tags << Tag.find_by(name: tag) || Tag.create(name: tag) }
         format.html { redirect_to @task, notice: I18n.t("u_task_happy") }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -84,7 +96,8 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    #puts params
-    params.require(:task).permit(:name, :title, :content, :tag, :user_id, :start_time, :end_time, :piority, :state)
+    params[:task][:user_id] = @current_user.id
+    # puts params
+    params.require(:task).permit(:name, :title, :content, :user_id, :start_time, :end_time, :piority, :state)
   end
 end

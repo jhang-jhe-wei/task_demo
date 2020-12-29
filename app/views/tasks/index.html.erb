@@ -7,6 +7,11 @@
 <% end %>
 
 <%= form_tag '/tasks/search' do %>
+  <%= text_field_tag 'tag',nil , placeholder: "標籤", class:'tbx_normal' %>
+  <%= submit_tag "查詢", class: "btn btn-secondary"%>
+<% end %>
+
+<%= form_tag '/tasks/search' do %>
   <select name="state", class: class="btn btn-info dropdown-toggle" >
   <option value="pending"><%= I18n.t("pending")%></option>
   <option value="processing"><%= I18n.t("processing")%></option>
@@ -14,14 +19,12 @@
 </select>
   <%= submit_tag "查詢", class: "btn btn-secondary"%>
 <% end %>
-<%= paginate @tasks %>
 <table class="table">
   <thead>
     <tr>
       <th><%= I18n.t("title") %></th>
       <th><%= I18n.t("content") %></th>
       <th><%= I18n.t("tag") %></th>
-      <th>User</th>
       <th><%= I18n.t("start_time") %></th>
       <th><%= I18n.t("end_time") %></th>
       <th><%= I18n.t("piority") %></th>
@@ -35,8 +38,11 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= task.tag %></td>
-        <td><%= task.user.name %></td>
+        <td>
+        <% task.tags.each do |tag| %>
+          <%= "##{tag.name}" %>
+          <% end %>
+        </td>
         <td><%= task.start_time %></td>
         <td><%= task.end_time %></td>
         <td><%= I18n.t(task.piority) %></td>
@@ -53,4 +59,5 @@
 
 <%= link_to I18n.t("create_task"), new_task_path ,class:"breadcrumb-item"%>
 <%= link_to I18n.t("order_by_end_time"), "/tasks/order/end_time" %>
-<%= link_to I18n.t("order_by_piority"), "/tasks/order/piority" %>
+<%= link_to I18n.t("order_by_piority"), "/tasks/order/piority" %></br>
+<%= link_to '登出', session_path ,method: :delete %>

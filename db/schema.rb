@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_070746) do
+ActiveRecord::Schema.define(version: 2020_12_29_080848) do
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags_tasks", id: false, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "task_id"
+    t.index ["tag_id"], name: "index_tags_tasks_on_tag_id"
+    t.index ["task_id"], name: "index_tags_tasks_on_task_id"
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "content"
-    t.string "tag"
+    t.integer "tag"
     t.integer "user_id"
     t.datetime "start_time"
     t.datetime "end_time"
@@ -35,6 +48,8 @@ ActiveRecord::Schema.define(version: 2020_12_27_070746) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password"
+    t.boolean "admin", default: false
   end
 
 end

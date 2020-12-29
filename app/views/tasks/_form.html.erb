@@ -23,14 +23,11 @@
 
   <div class="field">
     <%= form.label "#{I18n.t("tag")}" %>
-    <%= form.text_field :tag %>
+    <% tags = ""%>
+    <% @task.tags.select { |tag| tags += "##{tag.name}"} %>
+    <%= form.text_field :tag ,value: tags,placeholder: "標籤使用#開頭"%>
   </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div>
-
+  
   <div class="field">
     <%= form.label "#{I18n.t("start_time")}" %>
     <%= form.datetime_select :start_time %>
