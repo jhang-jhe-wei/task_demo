@@ -66,7 +66,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        @task.destroy_all
+        @task.tags.destroy_all
         params[:task][:tag].split(" ").each { |tag| @task.tags << Tag.find_by(name: tag) || Tag.create(name: tag) }
         format.html { redirect_to @task, notice: I18n.t("u_task_happy") }
         format.json { render :show, status: :ok, location: @task }
