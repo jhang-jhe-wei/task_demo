@@ -48,7 +48,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     params[:task][:tag].split("#").each do |tag|
-      @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
+      @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag)) unless tag == " "
     end
     respond_to do |format|
       if @task.save
@@ -67,7 +67,11 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         @task.tags.destroy_all
-        params[:task][:tag].split(" ").each { |tag| @task.tags << Tag.find_by(name: tag) || Tag.create(name: tag) }
+        params[:task][:tag].split("#").each do |tag|
+          unless tag == " "
+            @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
+          end
+        end
         format.html { redirect_to @task, notice: I18n.t("u_task_happy") }
         format.json { render :show, status: :ok, location: @task }
       else
