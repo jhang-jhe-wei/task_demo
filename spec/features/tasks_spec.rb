@@ -15,7 +15,7 @@ RSpec.feature "Tasks", type: :feature do
       within("form") do
         fill_in "task_title", with: "交報告"
         fill_in "task_content", with: "財務金融期中報告"
-        fill_in "task_tag", with: "報告"
+        fill_in "task_tag", with: "#報告"
         select "2020", from: "task_start_time_1i"
         select "5月", from: "task_start_time_2i"
         select "5", from: "task_start_time_3i"
@@ -58,7 +58,7 @@ RSpec.feature "Tasks", type: :feature do
   context "update task" do
     scenario "should be successful" do
       user = User.first
-      task = user.tasks.create(title: "交報告", content: "財務金融期中報告", tag: "報告", start_time: DateTime.now, end_time: DateTime.tomorrow)
+      task = user.tasks.create(title: "交報告", content: "財務金融期中報告", start_time: DateTime.now, end_time: DateTime.tomorrow)
       visit edit_task_path(task)
       within("form") do
         fill_in "task_title", with: "回家"
@@ -75,7 +75,7 @@ RSpec.feature "Tasks", type: :feature do
   context "destroy task" do
     scenario "should be successful" do
       user = User.first
-      task = user.tasks.create(title: "交報告", content: "財務金融期中報告", tag: "報告", start_time: DateTime.now, end_time: DateTime.tomorrow)
+      task = user.tasks.create(title: "交報告", content: "財務金融期中報告", start_time: DateTime.now, end_time: DateTime.tomorrow)
       visit tasks_path
       expect { click_link I18n.t "destroy" }.to change(Task, :count).by(-1)
       expect(page).to have_content I18n.t "d_task_happy"
