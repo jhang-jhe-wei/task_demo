@@ -12,12 +12,9 @@
 
 <p>
   <strong><%= "#{I18n.t("tag")}: " %></strong>
-  <%= @task.tag %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @task.user_id %>
+  <% @task.tags.each do |tag| %>
+  <%= "##{tag.name}" %>
+  <% end %>
 </p>
 
 <p>

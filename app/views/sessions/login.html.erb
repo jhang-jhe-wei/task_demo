@@ -1,0 +1,9 @@
+
+<h2 >登入</h2>
+<p id="notice"><%= notice %></p>
+<%= form_tag sessions_new_path do %>
+    <%= text_field_tag :email,nil , placeholder: "電子信箱"%></br>
+  <%= password_field_tag :password,nil , placeholder: "密碼"%></br>
+  <%= submit_tag "登入", class: "btn btn-secondary"%>
+<% end %>
+<%= link_to "我是管理者", admin_login_path %>
