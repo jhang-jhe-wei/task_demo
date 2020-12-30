@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   def login?
     @current_user = User.find_by id: session[:current_user_id]
     redirect_to login_path unless @current_user
-    redirect_to admin_users_path if @current_user && @current_user.admin
   end
 
   def search
