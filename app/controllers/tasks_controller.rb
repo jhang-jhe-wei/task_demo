@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   def login?
     @current_user = User.find_by id: session[:current_user_id]
     redirect_to login_path unless @current_user
+    redirect_to admin_users_path if @current_user.admin
   end
 
   def search
@@ -49,7 +50,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     params[:task][:tag].split(" ").each do |tag|
       unless tag == ""
-        puts "in create tag"
         @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
       end
     end
@@ -72,7 +72,6 @@ class TasksController < ApplicationController
         @task.tags.destroy_all
         params[:task][:tag].split(" ").each do |tag|
           unless tag == ""
-            puts "in create tag"
             @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
           end
         end
@@ -104,8 +103,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    task = Task.find params[:id]
-    params[:task][:user_id] = task.user || @current_user.id
+    params[:task][:user_id] = params[:id] || @current_user.id
     params.require(:task).permit(:name, :title, :content, :user_id, :start_time, :end_time, :piority, :state)
   end
 end

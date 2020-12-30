@@ -5,7 +5,6 @@ class Admin::UsersController < ApplicationController
   def login?
     @current_user = User.find_by id: session[:current_user_id]
     redirect_to admin_login_path unless @current_user
-    redirect_to tasks_path unless @current_user.admin
   end
 
   # GET /users
