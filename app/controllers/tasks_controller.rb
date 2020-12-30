@@ -8,10 +8,10 @@ class TasksController < ApplicationController
   end
 
   def search
-    #puts I18n.t(params[:state])
+    puts params[:tag]
     @tasks = @current_user.tasks.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
     @tasks = @current_user.tasks.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
-    @tasks = Task.where(tag: Tag.find_by(name: params[:tag]), user: @current_user).includes(:user).page(params[:page]) if params[:tag]
+    @tasks = Tag.find_by(name: params[:tag]).tasks.where(user: @current_user).includes(:user).page(params[:page]) if params[:tag]
     @tasks ||= []
     render :index
   end
@@ -47,8 +47,12 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    puts "count: #{params[:task][:tag].split("#").count}"
     params[:task][:tag].split("#").each do |tag|
-      @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag)) unless tag == " "
+      unless tag == ""
+        puts "in create tag"
+        @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
+      end
     end
     respond_to do |format|
       if @task.save
@@ -67,8 +71,10 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         @task.tags.destroy_all
+        puts "count: #{params[:task][:tag].split("#").count}"
         params[:task][:tag].split("#").each do |tag|
-          unless tag == " "
+          unless tag == ""
+            puts "in create tag"
             @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
           end
         end
