@@ -47,8 +47,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    puts "count: #{params[:task][:tag].split("#").count}"
-    params[:task][:tag].split("#").each do |tag|
+    params[:task][:tag].split(" ").each do |tag|
       unless tag == ""
         puts "in create tag"
         @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))
@@ -71,8 +70,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         @task.tags.destroy_all
-        puts "count: #{params[:task][:tag].split("#").count}"
-        params[:task][:tag].split("#").each do |tag|
+        params[:task][:tag].split(" ").each do |tag|
           unless tag == ""
             puts "in create tag"
             @task.tags << (Tag.find_by(name: tag) || Tag.create(name: tag))

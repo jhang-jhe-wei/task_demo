@@ -40,7 +40,7 @@
         <td><%= task.content %></td>
         <td>
         <% task.tags.each do |tag| %>
-          <%= "##{tag.name}" %>
+          <%= "#{tag.name}/" %>
           <% end %>
         </td>
         <td><%= task.start_time %></td>
