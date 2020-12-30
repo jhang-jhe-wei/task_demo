@@ -13,7 +13,7 @@
 <p>
   <strong><%= "#{I18n.t("tag")}: " %></strong>
   <% @task.tags.each do |tag| %>
-  <%= "##{tag.name}" %>
+  <%= "#{tag.name}/" %>
   <% end %>
 </p>
 
@@ -38,4 +38,8 @@
 </p>
 
 <%= link_to I18n.t("edit"), edit_task_path(@task) %> |
+<% unless @current_user.admin %>
 <%= link_to I18n.t("back"), tasks_path %>
+<% else %>
+<%= link_to I18n.t("back"), admin_users_path %>
+<% end %>

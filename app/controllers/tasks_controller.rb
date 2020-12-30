@@ -11,8 +11,8 @@ class TasksController < ApplicationController
     puts params[:tag]
     @tasks = @current_user.tasks.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
     @tasks = @current_user.tasks.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
-    @tasks = Tag.find_by(name: params[:tag]).tasks.where(user: @current_user).includes(:user).page(params[:page]) if params[:tag]
-    @tasks ||= []
+    @tasks = Tag.find_by(name: params[:tag]).tasks.where(user: @current_user).includes(:user).page(params[:page]) if params[:tag] && params[:tag] != ""
+    @tasks ||= Task.where(title: nil).includes(:user).page(params[:page])
     render :index
   end
 
@@ -90,7 +90,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: I18n.t("d_task_happy") }
+      format.html { unless @current_user.admin then redirect_to tasks_url, notice: I18n.t("d_task_happy") else redirect_to admin_users_path, notice: I18n.t("d_task_happy") end }
       format.json { head :no_content }
     end
   end
@@ -104,8 +104,8 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params[:task][:user_id] = @current_user.id
-    # puts params
+    task = Task.find params[:id]
+    params[:task][:user_id] = task.user || @current_user.id
     params.require(:task).permit(:name, :title, :content, :user_id, :start_time, :end_time, :piority, :state)
   end
 end

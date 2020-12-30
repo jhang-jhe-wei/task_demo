@@ -2,4 +2,8 @@
 
 <%= render "form", task: @task %>
 
-<%= link_to "#{I18n.t("back")}", tasks_path %>
+<% unless @current_user.admin %>
+<%= link_to I18n.t("back"), tasks_path %>
+<% else %>
+<%= link_to I18n.t("back"), admin_users_path %>
+<% end %>
