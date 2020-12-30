@@ -5,14 +5,14 @@ class TasksController < ApplicationController
   def login?
     @current_user = User.find_by id: session[:current_user_id]
     redirect_to login_path unless @current_user
-    redirect_to admin_users_path if @current_user.admin
+    redirect_to admin_users_path if @current_user && @current_user.admin
   end
 
   def search
     puts params[:tag]
     @tasks = @current_user.tasks.where("title = ?", params[:title]).includes(:user).page(params[:page]) if params[:title]
     @tasks = @current_user.tasks.where("state = ?", Task.states[params[:state]]).includes(:user).page(params[:page]) if params[:state]
-    @tasks = Tag.find_by(name: params[:tag]).tasks.where(user: @current_user).includes(:user).page(params[:page]) if params[:tag] && params[:tag] != ""
+    @tasks = Tag.find_by(name: params[:tag]).tasks.where(user: @current_user).includes(:user).page(params[:page]) if Tag.find_by(name: params[:tag])
     @tasks ||= Task.where(title: nil).includes(:user).page(params[:page])
     render :index
   end
@@ -103,7 +103,9 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params[:task][:user_id] = params[:id] || @current_user.id
+    task = Task.find_by(id: params[:id])
+    params[:task][:user_id] = task.user if task
+    params[:task][:user_id] ||= @current_user.id
     params.require(:task).permit(:name, :title, :content, :user_id, :start_time, :end_time, :piority, :state)
   end
 end
