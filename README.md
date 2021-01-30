@@ -1,4 +1,18 @@
 # README
+## Demo
+* [Demo](https://wells-task-demo.herokuapp.com/)
+* Login Information:
+  * http basic auth ：
+    * username：username
+    * password：password
+  * admin(login)：
+    * email：admin@gmail.com
+    * password：123456
+  * user(login)：
+    * email：user@gmail.com
+    * password：123456
+    
+----------
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
